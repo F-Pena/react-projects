@@ -52,4 +52,4 @@ The project demonstrates these concepts through various components that make up 
 - React
 - JavaScript (ES6+)
 - CSS
-- Create React App
+- ViteJS
