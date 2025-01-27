@@ -7,29 +7,26 @@ import { calculateInvestmentResults } from "./util/investment";
 function App() {
   const [results, setResults] = useState([]);
   const [userInput, setUserInput] = useState({
-    initialInvestment: 0,
-    annualInvestment: 0,
-    expectedReturn: 0,
-    duration: 0,
+    initialInvestment: 10000,
+    annualInvestment: 1200,
+    expectedReturn: 6,
+    duration: 10,
   });
 
-  function updateUserInput(id, value) {
-    console.log('updateUserInput', id);
-    setUserInput(prevInput => ({
-      ...prevInput,
-      [id]: value
-    }));
-    handleCalculateResults();
-  }
+  const inputIsValid = userInput.duration >= 1;
 
-  function handleCalculateResults() {
-    console.log('handleCalculateResults');
-    setResults(calculateInvestmentResults(
-      userInput.initialInvestment,
-      userInput.annualInvestment,
-      userInput.expectedReturn,
-      userInput.duration
-    ));
+  function updateUserInput(id, value) {
+    setUserInput((prevUserInput) => {
+      const newUserInput = {
+        ...prevUserInput,
+        [id]: +value
+      };
+      
+      // Calculate results with the updated input values
+      setResults(calculateInvestmentResults(newUserInput));
+      
+      return newUserInput;
+    });
   }
 
   return (
@@ -42,13 +39,13 @@ function App() {
                 id="initialInvestment" 
                 label="Initial Investment" 
                 onChange={updateUserInput} 
-                value={userInput.initialInvestment}
+                initialValue={userInput.initialInvestment}
               />
               <Input 
                 id="annualInvestment" 
                 label="Annual Investment" 
                 onChange={updateUserInput} 
-                value={userInput.annualInvestment}
+                initialValue={userInput.annualInvestment}
               />
             </div>
             <div className="input-group">
@@ -56,19 +53,18 @@ function App() {
                 id="expectedReturn" 
                 label="Expected Return" 
                 onChange={updateUserInput}
-                value={userInput.expectedReturn}
+                initialValue={userInput.expectedReturn}
               />
               <Input 
                 id="duration" 
                 label="Duration" 
                 onChange={updateUserInput}
-                value={userInput.duration}
+                initialValue={userInput.duration}
               />
             </div>
         </section>
-        <section id="results">
-          <Results results={results} />
-        </section>
+        { !inputIsValid && <p className="center">Please enter a valid duration greater than zero.</p> }
+        { inputIsValid && <Results results={results} /> }
       </main>
     </>
   )
