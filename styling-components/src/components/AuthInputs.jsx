@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { styled } from 'styled-components';
+import Button from './Button';
+import Input from './Input';
 
 const StyledAuthInputs = styled.div`
   width: 100%;
@@ -28,7 +30,7 @@ const Label = styled.label`
   color: ${(props) => props.$invalid ? '#f87171' : '#6b7280'};
 `
 
-const Input = styled.input`
+const StyledInput = styled.input`
   width: 100%;
   padding: 0.75rem 1rem;
   line-height: 1.5;
@@ -45,7 +47,7 @@ const Actions = styled.div`
   gap: 1rem;
 `
 
-const Button = styled.button`
+const StyledButton = styled.button`
   padding: 1rem 2rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -54,6 +56,8 @@ const Button = styled.button`
   background-color: #f0b322;
   border-radius: 6px;
   border: none;
+  will-change: background-color;
+  transition: background-color 0.3s ease;
 
   &:hover {
     background-color: #f0920e;
@@ -63,6 +67,8 @@ const Button = styled.button`
 const TextButton = styled.button`
   color: #f0b322;
   border: none;
+  will-change: color;
+  transition: color 0.3s ease;
 
   &:hover {
     color: #f0920e;
@@ -90,9 +96,9 @@ export default function AuthInputs() {
   const passwordNotValid = submitted && enteredPassword.trim().length < 6;
 
   return (
-    <StyledAuthInputs>
-      <Controls>
-        <p>
+    <div className="w-full max-w-sm p-8 mx-auto rounded-lg shadow-md bg-gradient-to-b from-stone-700 to-stone-800 text-white">
+      <div className="flex flex-col gap-2 mb-6">
+        {/* <p>
           <Label htmlFor="email" $invalid={emailNotValid}>Email</Label>
           <Input
             id="email"
@@ -100,8 +106,8 @@ export default function AuthInputs() {
             $invalid={emailNotValid}
             onChange={(event) => handleInputChange('email', event.target.value)}
           />
-        </p>
-        <p>
+        </p> */}
+        {/* <p>
           <Label htmlFor="password" $invalid={passwordNotValid}>Password</Label>
           <Input
             id="password"
@@ -111,14 +117,17 @@ export default function AuthInputs() {
               handleInputChange('password', event.target.value)
             }
           />
-        </p>
-      </Controls>
-      <Actions>
-        <TextButton type="button">
+        </p> */}
+
+        <Input label="Email" invalid={emailNotValid} />
+        <Input label="Password" invalid={passwordNotValid} />
+      </div>
+      <div className="flex justify-end gap-4">
+        <button type="button" className="text-amber-400 hover:text-amber-500">
           Create a new account
-        </TextButton>
+        </button>
         <Button onClick={handleLogin}>Sign In</Button>
-      </Actions>
-    </StyledAuthInputs>
+      </div>
+    </div>
   );
 }
