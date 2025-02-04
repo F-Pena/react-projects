@@ -7,8 +7,8 @@ A React-based project management tool that allows users to create and manage pro
 - Create and delete projects with form validation
 - Add and remove tasks for each project
 - Data persistence using cookies
-- Responsive layout with sidebar navigation
 - Form validation for project creation
+- Tailwind CSS for styling.
 
 ## Technical Implementation
 
