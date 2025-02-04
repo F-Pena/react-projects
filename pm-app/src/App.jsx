@@ -11,9 +11,9 @@ function App() {
   });
 
   useEffect(() => {
-    const projects = JSON.parse(document.cookie.split('; ').find(row => row.startsWith('projects='))?.split('=')[1]);
+    const projectCookies = document.cookie.split('; ').find(row => row.startsWith('projects='));
+    const projects = projectCookies ? JSON.parse(projectCookies.split('=')[1]) : null;
     if(projects) {
-      
       setProjectsState(prevState => {
         return {
           ...prevState,
@@ -84,9 +84,19 @@ function App() {
     })
   }
 
+  function handleAddTask(task) {
+
+  }
+
+  function handleDeleteTask(taskId) {
+
+  }
+
   let content = <SelectedProject 
                   project={projectsState.projects.find(p => p.id === projectsState.selectedProject)} 
                   handleDeleteProject={handleDeleteProject} 
+                  handleAddTask={handleAddTask} 
+                  handleDeleteTask={handleDeleteTask}
                 />;
 
   if(projectsState.selectedProject === null) {
